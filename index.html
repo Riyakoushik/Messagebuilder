@@ -4,21 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Offer Builder | Telegram Format</title>
-    <!-- Google Fonts Integration -->
+    <title>Offer Architect v2 | Elite Builder</title>
+    <!-- Modern typography and icon libraries -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #080911;
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --accent: #ff4757;
-            --card-bg: rgba(20, 24, 35, 0.7);
-            --border-light: rgba(255, 255, 255, 0.08);
-            --text-muted: #8b949e;
-            --success: #00e676;
+            --bg-black: #030304;
+            --card-black: #0b0b0f;
+            --primary-cyan: #00F2FE;
+            --primary-purple: #4FACFE;
+            --accent-cyan: #00d9ff;
+            --subtext: #9096a2;
+            --glow-cyan: rgba(0, 242, 254, 0.15);
+            --glow-purple: rgba(79, 172, 254, 0.15);
+            --surface-border: rgba(255, 255, 255, 0.06);
+            --input-surface: #111118;
         }
 
         * {
@@ -28,557 +30,690 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-dark);
-            color: #f0f6fc;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-black);
+            color: #ffffff;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Animated Radial Glows in Background */
+        /* Advanced Animated Grid and Spotlights Background */
         body::before {
-            content: "";
-            position: fixed;
-            top: -10%;
-            right: -10%;
-            width: 50%;
-            height: 50%;
-            background: radial-gradient(circle, rgba(58, 123, 213, 0.15) 0%, transparent 70%);
-            z-index: -1;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
+            background-size: 30px 30px;
+            mask-image: linear-gradient(to bottom, transparent, black, transparent);
+            -webkit-mask-image: radial-gradient(ellipse at top, black 10%, transparent 90%);
             pointer-events: none;
+            z-index: -2;
         }
 
-        body::after {
-            content: "";
+        .bg-glow {
             position: fixed;
-            bottom: -15%;
-            left: -10%;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(circle, rgba(0, 210, 255, 0.12) 0%, transparent 70%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.25;
             z-index: -1;
             pointer-events: none;
+            animation: floatGlow 20s infinite alternate;
         }
 
-        /* Main Container Glassmorphism */
-        .glass-container {
-            background: var(--card-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            padding: 48px 36px;
-            border-radius: 28px;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.6), 
-                        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        .glow-1 {
+            background: var(--primary-cyan);
+            top: -200px;
+            left: -200px;
+        }
+
+        .glow-2 {
+            background: var(--primary-purple);
+            bottom: -200px;
+            right: -200px;
+            animation-delay: -10s;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.2); }
+        }
+
+        /* Main Wrapper Layout */
+        .main-wrapper {
             width: 100%;
-            max-width: 600px;
-            animation: fadeIn 0.8s ease-out forwards;
+            max-width: 1200px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            opacity: 0;
+            animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Header & Title */
-        .app-header {
-            text-align: center;
-            margin-bottom: 36px;
+        /* Navbar/Header area */
+        .app-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
         }
 
-        .app-title {
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #ffffff 0%, #a0a8b6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .gradient-text {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Settings Section for User Handle */
-        .settings-bar {
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
-            padding: 10px 15px;
-            gap: 10px;
+            box-shadow: 0 0 30px var(--glow-cyan);
         }
 
-        .settings-label {
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .signature-control {
+            background: var(--card-black);
+            border: 1px solid var(--surface-border);
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            padding: 6px 6px 6px 16px;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .signature-control:focus-within {
+            border-color: rgba(0, 242, 254, 0.3);
+            box-shadow: 0 0 20px var(--glow-cyan);
+        }
+
+        .sig-label {
             font-size: 12px;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--subtext);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
-        .handle-input-wrapper {
-            position: relative;
-            flex: 1;
+        .sig-input-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--input-surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 100px;
+            padding: 6px 14px;
         }
 
-        .handle-input-wrapper span {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
+        .sig-input-wrapper span {
+            color: var(--primary-cyan);
             font-weight: 700;
+            margin-right: 4px;
         }
 
-        .handle-input {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            padding: 8px 12px 8px 28px;
-            border-radius: 8px;
+        .sig-input {
+            background: transparent;
+            border: none;
+            color: white;
             font-family: inherit;
             font-weight: 600;
-            width: 100%;
             outline: none;
-            transition: all 0.3s;
+            width: 120px;
+            font-size: 14px;
         }
 
-        .handle-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.15);
+        /* Dashboard Container: Grid for Desktop, Single column for Mobile */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
         }
 
-        /* Input Area */
-        .input-section {
-            margin-bottom: 24px;
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .field-label {
+        /* Reusable Component Card Styles */
+        .glass-card {
+            background: linear-gradient(160deg, #111118 0%, #09090d 100%);
+            border: 1px solid var(--surface-border);
+            border-radius: 24px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Light streak hover effect for card border via pseudo-element */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+        }
+
+        .card-head {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 13px;
+            align-items: center;
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 600;
-            color: #cfd8e3;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #f8fafc;
         }
 
-        .char-count {
-            color: var(--text-muted);
-            font-weight: 400;
+        .bullet-decor {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--primary-cyan);
+            box-shadow: 0 0 10px var(--primary-cyan);
         }
 
-        .styled-textarea {
+        .char-pill {
+            background: rgba(255,255,255,0.03);
+            padding: 5px 12px;
+            border-radius: 100px;
+            font-size: 11px;
+            color: var(--subtext);
+            border: 1px solid var(--surface-border);
+        }
+
+        /* Interactive Elements styling */
+        .editor-textarea {
             width: 100%;
-            padding: 18px;
-            background: rgba(0, 0, 0, 0.25);
-            border: 1.5px solid var(--border-light);
-            color: #ffffff;
+            height: 300px;
+            background: var(--input-surface);
+            border: 1px solid var(--surface-border);
             border-radius: 16px;
-            font-family: 'Inter', sans-serif;
+            padding: 20px;
+            color: #e2e8f0;
+            font-family: inherit;
             font-size: 15px;
-            font-weight: 400;
             line-height: 1.6;
-            resize: vertical;
-            min-height: 160px;
+            resize: none;
             outline: none;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .styled-textarea::placeholder {
-            color: #5d6674;
+        .editor-textarea:focus {
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 30px -10px var(--glow-cyan);
+            background: #13131c;
         }
 
-        .styled-textarea:focus {
-            border-color: rgba(0, 210, 255, 0.6);
-            background: rgba(0, 0, 0, 0.35);
-            box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
+        .editor-textarea::placeholder {
+            color: #475569;
         }
 
-        /* Generation Button */
-        .action-btn {
+        /* Output Screen Special Visuals */
+        .output-display {
+            background: #07070a;
+            border: 1px solid var(--surface-border);
+            border-radius: 16px;
+            height: 300px;
+            padding: 20px;
+            color: #cbd5e1;
+            font-family: 'Consolas', 'Monaco', 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            overflow-y: auto;
+            white-space: pre-wrap;
             position: relative;
+            transition: all 0.5s;
+        }
+
+        /* Loading Placeholder overlay inside output */
+        .empty-state {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            color: #334155;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .empty-icon {
+            width: 48px; height: 48px; opacity: 0.3;
+        }
+
+        /* Actions Styling */
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            margin-top: auto;
+        }
+
+        .master-btn {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: #ffffff;
-            border: none;
             border-radius: 16px;
-            font-size: 16px;
+            border: none;
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
+            font-size: 16px;
             letter-spacing: 0.5px;
             cursor: pointer;
-            overflow: hidden;
-            transition: all 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 12px 28px -8px rgba(0, 210, 255, 0.35);
+            gap: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .action-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255,255,255,0.13);
-            transform: rotate(45deg);
-            transition: 0.5s;
-            opacity: 0;
+        /* Glowing Cyan Build Button */
+        .btn-build {
+            background: linear-gradient(to right, #00F2FE, #4FACFE);
+            color: #000000;
+            box-shadow: 0 10px 30px -10px rgba(0, 242, 254, 0.5);
         }
 
-        .action-btn:hover:not(:disabled)::after {
-            left: 100%;
-            opacity: 1;
+        .btn-build:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -10px rgba(0, 242, 254, 0.6);
         }
 
-        .action-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 35px -8px rgba(0, 210, 255, 0.5);
-        }
-
-        .action-btn:active:not(:disabled) {
-            transform: translateY(1px);
-        }
-
-        .action-btn:disabled {
-            background: #202330;
-            color: #54586b;
-            box-shadow: none;
+        .btn-build:disabled {
+            filter: grayscale(1) opacity(0.5);
             cursor: not-allowed;
         }
 
-        /* Result/Output Panel */
-        .result-panel {
-            margin-top: 36px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(0, 230, 118, 0.2);
-            border-radius: 20px;
-            padding: 24px;
-            display: none;
-            animation: slideReveal 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+        /* Holographic Outline Copy Button */
+        .btn-copy {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--surface-border);
+            color: #f8fafc;
         }
 
-        @keyframes slideReveal {
-            from { opacity: 0; transform: scale(0.95) translateY(15px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+        .btn-copy:hover:not(.inactive) {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
         }
 
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
+        .btn-copy.success-anim {
+            background: #10b981;
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
         }
 
-        .result-tag {
-            color: var(--success);
+        .inactive {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Shimmer Effect Element on Button */
+        .shimmer {
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(30deg);
+            transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            pointer-events: none;
+            left: -200%;
+        }
+
+        .master-btn:hover .shimmer {
+            left: 100%;
+        }
+
+        /* Core Spinner for API fetching */
+        .dual-ring-loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+        .dual-ring-loader:after {
+            content: " ";
+            display: block;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            border: 2.5px solid #000;
+            border-color: #000 transparent #000 transparent;
+            animation: dual-ring-loader 0.8s linear infinite;
+        }
+        @keyframes dual-ring-loader {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Typing status/flashing cursor effect */
+        .active-build-border {
+            animation: borderPulse 1.5s infinite;
+        }
+        @keyframes borderPulse {
+            0% { border-color: var(--surface-border); }
+            50% { border-color: var(--primary-cyan); }
+            100% { border-color: var(--surface-border); }
+        }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            margin-top: 20px;
             font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
+            color: #334155;
             display: flex;
+            justify-content: center;
             align-items: center;
             gap: 6px;
         }
 
-        .result-tag::before {
-            content: '';
+        .pulse-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #10b981;
+        }
+
+        /* Scrollbar Aesthetics */
+        ::-webkit-scrollbar {
             width: 6px;
-            height: 6px;
-            background: var(--success);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--success);
         }
-
-        .output-box {
-            width: 100%;
+        ::-webkit-scrollbar-track {
             background: transparent;
-            border: none;
-            color: #e6edf3;
-            font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
-            font-size: 14px;
-            line-height: 1.7;
-            resize: none;
-            outline: none;
-            white-space: pre-wrap;
-            min-height: 150px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
         }
 
-        /* Copy Button Styling */
-        .copy-btn {
-            width: 100%;
-            margin-top: 20px;
-            padding: 16px;
-            background: rgba(0, 230, 118, 0.08);
-            border: 1px solid rgba(0, 230, 118, 0.3);
-            border-radius: 12px;
-            color: var(--success);
-            font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.25s ease;
-        }
-
-        .copy-btn:hover {
-            background: rgba(0, 230, 118, 0.18);
-            border-color: var(--success);
-            transform: translateY(-1px);
-        }
-
-        .copy-btn.active {
-            background: var(--success);
-            color: #000;
-            border-color: transparent;
-            transform: scale(0.98);
-        }
-
-        /* Micro Animations & Loader */
-        .loader {
-            border: 2.5px solid rgba(255, 255, 255, 0.25);
-            border-top: 2.5px solid #fff;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            animation: spinCircle 0.6s linear infinite;
-        }
-
-        @keyframes spinCircle {
-            to { transform: rotate(360deg); }
-        }
-
-        .footer-text {
-            text-align: center;
-            margin-top: 28px;
-            font-size: 12px;
-            color: #4c5265;
-            font-weight: 500;
-            letter-spacing: 0.2px;
-        }
-
-        /* Mobile Responsive Adjustments */
-        @media (max-width: 480px) {
-            .glass-container {
-                padding: 30px 20px;
-                border-radius: 22px;
-            }
-            .app-title {
-                font-size: 26px;
-            }
-            .settings-bar {
+        /* Responsive Mobile Stack fixes */
+        @media (max-width: 600px) {
+            .app-navbar {
                 flex-direction: column;
+                gap: 16px;
                 align-items: flex-start;
+            }
+            .signature-control {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .main-wrapper {
+                padding: 15px;
+            }
+            .glass-card {
+                padding: 24px;
             }
         }
     </style>
 </head>
 
 <body>
+    <!-- Background ambient environment -->
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
 
-    <div class="glass-container">
-        <header class="app-header">
-            <h1 class="app-title">AI Offer <span class="gradient-text">Architect</span></h1>
+    <div class="main-wrapper">
+        <!-- Top Header & Logic Settings -->
+        <header class="app-navbar">
+            <div class="logo-group">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6 6-6"/><path d="m5 12 6 6 6-6"/></svg>
+                </div>
+                <h1 class="logo-text">Offer Architect</h1>
+            </div>
+
+            <div class="signature-control">
+                <span class="sig-label">Auto Signature</span>
+                <div class="sig-input-wrapper">
+                    <span>@</span>
+                    <input type="text" id="handleControl" class="sig-input" placeholder="rustedking" spellcheck="false">
+                </div>
+            </div>
         </header>
 
-        <!-- User Settings Panel: Makes the tool highly customizable -->
-        <div class="settings-bar">
-            <span class="settings-label">Sign Messages As</span>
-            <div class="handle-input-wrapper">
-                <span>@</span>
-                <input type="text" id="userHandle" class="handle-input" placeholder="username" spellcheck="false">
+        <!-- Dual Panel Engine -->
+        <div class="dashboard-grid">
+            
+            <!-- Left Input Node -->
+            <div class="glass-card">
+                <div class="card-head">
+                    <div class="card-title">
+                        <div class="bullet-decor"></div>
+                        Construct Prompt
+                    </div>
+                    <div class="char-pill" id="charIndicator">0 Chars</div>
+                </div>
+
+                <textarea id="composerBox" class="editor-textarea" 
+                    placeholder="Enter disorganized offer intel here... E.g. 'Selling my 2022 MacBook Pro 14, 16GB RAM, 512GB SSD. Mint condition. Space Gray. Looking for 1400 obo. Located in NYC for pickup only.'"
+                    oninput="syncTextMetrics()"></textarea>
+
+                <div class="btn-group">
+                    <button id="compileBtn" class="master-btn btn-build" onclick="invokeAIEngine()">
+                        <div class="shimmer"></div>
+                        <svg id="btnIconStandard" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <span id="btnLabel">Synthesize Offer</span>
+                    </button>
+                </div>
             </div>
+
+            <!-- Right Output Node -->
+            <div class="glass-card" id="outputNode">
+                <div class="card-head">
+                    <div class="card-title">
+                        <div class="bullet-decor" style="background:#4facfe; box-shadow: 0 0 10px #4facfe;"></div>
+                        Neural Output
+                    </div>
+                </div>
+
+                <div class="output-display" id="terminalFeed">
+                    <!-- Initial Placeholder when empty -->
+                    <div class="empty-state" id="statusWall">
+                        <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                        <p>Awaiting Synthesis Data...</p>
+                    </div>
+                    <!-- Active dynamic text will inject here directly -->
+                </div>
+
+                <div class="btn-group">
+                    <button id="duplicatorBtn" class="master-btn btn-copy inactive" onclick="executeDuplication()">
+                        <svg id="copySvg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span id="copyTag">Copy to Buffer</span>
+                    </button>
+                </div>
+            </div>
+
         </div>
 
-        <main>
-            <div class="input-section">
-                <div class="field-label">
-                    <span>Raw Offer Inputs</span>
-                    <span class="char-count" id="charCount">0 chars</span>
-                </div>
-                <textarea id="rawInput" class="styled-textarea" 
-                    placeholder="Example: WTS brand new iPhone 15 pro max 256gb natural titanium battery 100 local pickup only no shippings price is around 900 usd obo..."
-                    oninput="updateCharCount()"></textarea>
-            </div>
-
-            <button id="triggerBtn" class="action-btn" onclick="generateWorkflow()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                Build Message
-            </button>
-        </main>
-
-        <!-- Dynamic Response Section -->
-        <section class="result-panel" id="resultArea">
-            <div class="result-header">
-                <div class="result-tag">Optimized Output</div>
-            </div>
-            <textarea id="outputContent" class="output-box" readonly rows="10"></textarea>
-            
-            <button id="copyActionBtn" class="copy-btn" onclick="initiateCopy()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                Duplicate to Clipboard
-            </button>
-        </section>
-
-        <footer class="footer-text">
-            High-Fidelity Engine powered by Pollinations Neural Net
+        <footer class="site-footer">
+            <div class="pulse-dot"></div>
+            Connected to Cloud Neural Grid
         </footer>
     </div>
 
     <script>
-        // Constants & System Directives
-        const SYSTEM_PROMPT = `You are an expert Telegram marketplace structuring bot. Your absolute only mission is to transform disorganized offer input into high-conversion, highly structured markdown messages.
-Strict Formatting Rules:
-1. Use sleek bold text headers (e.g. **[PROD_NAME]** or **💰 Price:**).
-2. Use uniform bullets and premium contextual emojis.
-3. Logical segments: Headline, Specifications, Price & Status, Terms.
-4. Keep lines readable and spacing neat.
-5. NEVER include contact details, user links, or closing dialog. The app appends this programmatically.
-6. Provide ONLY the raw markup. Absolutely no wrapper text.`;
+        // AI Context Directive
+        const SYSTEM_INSTRUCTION = `You are an elite formatting logic unit for Telegram marketplace deployment. 
+OBJECTIVE: Restructure messy user offer data into an extremely clean, structured, high-converting markdown announcement.
+REGULATIONS:
+1. Use bold headers like **📱 DEVICE NAME** or **💰 ASKING PRICE**.
+2. Use professional bullets (•) and selective premium emojis.
+3. Output MUST flow: Headline -> Detailed Specs -> Price/Condition -> Terms.
+4. Keep text blocks concise and double-spaced.
+5. ABSOLUTELY NEVER generated footer links, username tags, or small talk. The engine handles this algorithmically.`;
 
-        // LocalStorage logic for persistence
-        const handleField = document.getElementById('userHandle');
-        
-        window.addEventListener('DOMContentLoaded', () => {
-            // Set default or load stored value
-            const storedHandle = localStorage.getItem('tg_offer_handle');
-            handleField.value = storedHandle || 'rustedking';
+        // State Management
+        const handleInput = document.getElementById('handleControl');
+        const writePad = document.getElementById('composerBox');
+        const feedWall = document.getElementById('terminalFeed');
+        const copyTool = document.getElementById('duplicatorBtn');
+        let currentGeneratedBuffer = "";
+
+        // Initial Life-cycle Hook
+        document.addEventListener('DOMContentLoaded', () => {
+            const memory = localStorage.getItem('user_architect_sig');
+            handleInput.value = memory || 'rustedking';
         });
 
-        // Persist custom handle upon input
-        handleField.addEventListener('input', (e) => {
-            let val = e.target.value.trim().replace('@', ''); // Remove manual @ if entered
-            localStorage.setItem('tg_offer_handle', val);
+        // Settings Persistence
+        handleInput.addEventListener('input', (e) => {
+            const cleaned = e.target.value.trim().replace('@', '');
+            localStorage.setItem('user_architect_sig', cleaned);
         });
 
-        function updateCharCount() {
-            const input = document.getElementById('rawInput');
-            document.getElementById('charCount').innerText = `${input.value.length} chars`;
+        // Input Counter UI sync
+        function syncTextMetrics() {
+            document.getElementById('charIndicator').innerText = `${writePad.value.length} Chars`;
         }
 
-        async function generateWorkflow() {
-            const rawText = document.getElementById('rawInput').value.trim();
-            const btn = document.getElementById('triggerBtn');
-            const resultNode = document.getElementById('resultArea');
-            const handleVal = handleField.value.trim().replace('@', '') || 'rustedking';
+        // Primary Action Pipeline
+        async function invokeAIEngine() {
+            const sourceData = writePad.value.trim();
+            const handleStamp = handleInput.value.trim().replace('@', '') || 'rustedking';
+            
+            const ctaBtn = document.getElementById('compileBtn');
+            const iconNode = document.getElementById('btnIconStandard');
+            const outputBlock = document.getElementById('outputNode');
 
-            if (!rawText) {
-                triggerShake(document.getElementById('rawInput'));
+            if (!sourceData) {
+                triggerShakeSequence(writePad);
                 return;
             }
 
-            // Loading state aesthetics
-            btn.innerHTML = `<div class="loader"></div> Computing Engine...`;
-            btn.disabled = true;
-            resultNode.style.display = 'none';
+            // UI Engagement Phase
+            ctaBtn.disabled = true;
+            ctaBtn.innerHTML = `<div class="dual-ring-loader"></div> <span>Synthesizing...</span>`;
+            outputBlock.classList.add('active-build-border');
+            
+            // Reset Output wall
+            feedWall.innerHTML = `[SYSTEM INITIALIZED] Establishing uplink...\n[DATA STREAM] Injecting Prompt Payload...`;
+            copyTool.classList.add('inactive');
 
             try {
-                const endpoint = "https://text.pollinations.ai/";
-                
-                const payload = {
-                    messages: [
-                        { role: "system", content: SYSTEM_PROMPT },
-                        { role: "user", content: `Process this offer: ${rawText}` }
-                    ],
-                    model: "openai",
-                    jsonMode: false
-                };
-
-                const serverResponse = await fetch(endpoint, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                const responseObj = await fetch("https://text.pollinations.ai/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        messages: [
+                            { role: "system", content: SYSTEM_INSTRUCTION },
+                            { role: "user", content: `Construct optimized listing for: ${sourceData}` }
+                        ],
+                        model: "openai",
+                        jsonMode: false
+                    })
                 });
 
-                if (!serverResponse.ok) throw new Error("API Refusal");
+                if (!responseObj.ok) throw new Error("Neural Uplink Severed");
 
-                const textBody = await serverResponse.text();
+                const rawReturn = await responseObj.text();
                 
-                // Format signature and construct final block
-                const finalBlock = textBody.trim() + `\n\n📩 **Contact:** @${handleVal}`;
+                // Assemble the perfect telegram block
+                currentGeneratedBuffer = rawReturn.trim() + `\n\n📩 **Contact:** @${handleStamp}`;
 
-                // Render onto screen
-                const targetArea = document.getElementById('outputContent');
-                targetArea.value = finalBlock;
-                resultNode.style.display = 'block';
-
-                // Smooth dynamic scrolling down
+                // Direct output rendering with subtle fade in
+                feedWall.style.opacity = 0;
                 setTimeout(() => {
-                    resultNode.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
+                    feedWall.innerText = currentGeneratedBuffer;
+                    feedWall.style.opacity = 1;
+                    // Activate copy utility
+                    copyTool.classList.remove('inactive');
+                }, 200);
 
-            } catch (err) {
-                console.error(err);
-                alert("The Neural Server timed out. Verify web connectivity and try again in 15 seconds.");
+            } catch (fail) {
+                feedWall.innerHTML = `<span style="color:#ef4444;">[CRITICAL FAILURE] Pipeline disruption occurred. Please reload matrix or verify connection.</span>`;
+                console.error(fail);
             } finally {
-                // Restore UI Controls
-                btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Build Message`;
-                btn.disabled = false;
+                // Reset and cooldown
+                setTimeout(() => {
+                    outputBlock.classList.remove('active-build-border');
+                    ctaBtn.innerHTML = `<div class="shimmer"></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Synthesize Offer`;
+                    ctaBtn.disabled = false;
+                }, 300);
             }
         }
 
-        function triggerShake(element) {
-            element.style.borderColor = "rgba(255,71,87,0.6)";
-            element.animate([
+        // UX Feedback - Shake empty field
+        function triggerShakeSequence(node) {
+            node.style.borderColor = "#ef4444";
+            node.animate([
                 { transform: 'translateX(0)' },
-                { transform: 'translateX(5px)' },
-                { transform: 'translateX(-5px)' },
+                { transform: 'translateX(6px)' },
+                { transform: 'translateX(-6px)' },
                 { transform: 'translateX(0)' }
-            ], { duration: 300, iterations: 2 });
-            
-            setTimeout(() => { element.style.borderColor = ""; }, 2000);
+            ], { duration: 400, iterations: 1 });
+            setTimeout(() => { node.style.borderColor = ""; }, 1500);
         }
 
-        async function initiateCopy() {
-            const box = document.getElementById('outputContent');
-            const copyBtn = document.getElementById('copyActionBtn');
-            const contents = box.value;
+        // Clipboard API flow
+        async function executeDuplication() {
+            if(copyTool.classList.contains('inactive')) return;
+
+            const originalText = document.getElementById('copyTag').innerText;
+            const originalSvg = document.getElementById('copySvg').outerHTML;
 
             try {
-                // Modern async API with standard legacy fallback
                 if (navigator.clipboard && window.isSecureContext) {
-                    await navigator.clipboard.writeText(contents);
+                    await navigator.clipboard.writeText(currentGeneratedBuffer);
                 } else {
-                    box.select();
-                    document.execCommand('copy');
+                    // Fast legacy creation and execution
+                    const hiddenProxy = document.createElement("textarea");
+                    hiddenProxy.value = currentGeneratedBuffer;
+                    document.body.appendChild(hiddenProxy);
+                    hiddenProxy.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(hiddenProxy);
                 }
-                handleCopyFeedback(copyBtn);
-            } catch (e) {
-                // Ultimate safe fallback for mobile environments
-                box.select();
-                document.execCommand('copy');
-                handleCopyFeedback(copyBtn);
+                
+                // Visual transformation for success
+                copyTool.classList.add('success-anim');
+                document.getElementById('copyTag').innerText = "Buffer Synchronized!";
+                document.getElementById('duplicatorBtn').innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17 4 12"/></svg> <span>Secured in Clipboard</span>`;
+
+                setTimeout(() => {
+                    copyTool.classList.remove('success-anim');
+                    document.getElementById('duplicatorBtn').innerHTML = `${originalSvg} <span id="copyTag">${originalText}</span>`;
+                }, 2500);
+
+            } catch (err) {
+                alert("Hardware context limitation: Unable to automate copy. Please manually highlight and copy.");
             }
         }
-
-        function handleCopyFeedback(el) {
-            const originalMarkup = el.innerHTML;
-            el.classList.add('active');
-            el.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied Succesfully`;
-
-            setTimeout(() => {
-                el.classList.remove('active');
-                el.innerHTML = originalMarkup;
-            }, 2500);
-        }
     </script>
-
 </body>
 
 </html>
