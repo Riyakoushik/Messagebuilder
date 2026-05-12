@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Offer Builder | Telegram Format</title>
+    <!-- Google Fonts Integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #080911;
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --accent: #ff4757;
+            --card-bg: rgba(20, 24, 35, 0.7);
+            --border-light: rgba(255, 255, 255, 0.08);
+            --text-muted: #8b949e;
+            --success: #00e676;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            color: #f0f6fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Radial Glows in Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, rgba(58, 123, 213, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: -15%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.12) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Main Container Glassmorphism */
+        .glass-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 48px 36px;
+            border-radius: 28px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.6), 
+                        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            width: 100%;
+            max-width: 600px;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header & Title */
+        .app-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .app-title {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a8b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Settings Section for User Handle */
+        .settings-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 10px 15px;
+            gap: 10px;
+        }
+
+        .settings-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .handle-input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .handle-input-wrapper span {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .handle-input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 8px 12px 8px 28px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: 600;
+            width: 100%;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .handle-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.15);
+        }
+
+        /* Input Area */
+        .input-section {
+            margin-bottom: 24px;
+        }
+
+        .field-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #cfd8e3;
+        }
+
+        .char-count {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .styled-textarea {
+            width: 100%;
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1.5px solid var(--border-light);
+            color: #ffffff;
+            border-radius: 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.6;
+            resize: vertical;
+            min-height: 160px;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .styled-textarea::placeholder {
+            color: #5d6674;
+        }
+
+        .styled-textarea:focus {
+            border-color: rgba(0, 210, 255, 0.6);
+            background: rgba(0, 0, 0, 0.35);
+            box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
+        }
+
+        /* Generation Button */
+        .action-btn {
+            position: relative;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 12px 28px -8px rgba(0, 210, 255, 0.35);
+        }
+
+        .action-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.13);
+            transform: rotate(45deg);
+            transition: 0.5s;
+            opacity: 0;
+        }
+
+        .action-btn:hover:not(:disabled)::after {
+            left: 100%;
+            opacity: 1;
+        }
+
+        .action-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 35px -8px rgba(0, 210, 255, 0.5);
+        }
+
+        .action-btn:active:not(:disabled) {
+            transform: translateY(1px);
+        }
+
+        .action-btn:disabled {
+            background: #202330;
+            color: #54586b;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        /* Result/Output Panel */
+        .result-panel {
+            margin-top: 36px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 230, 118, 0.2);
+            border-radius: 20px;
+            padding: 24px;
+            display: none;
+            animation: slideReveal 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+        }
+
+        @keyframes slideReveal {
+            from { opacity: 0; transform: scale(0.95) translateY(15px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .result-tag {
+            color: var(--success);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .result-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        .output-box {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #e6edf3;
+            font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            resize: none;
+            outline: none;
+            white-space: pre-wrap;
+            min-height: 150px;
+        }
+
+        /* Copy Button Styling */
+        .copy-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(0, 230, 118, 0.08);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            border-radius: 12px;
+            color: var(--success);
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(0, 230, 118, 0.18);
+            border-color: var(--success);
+            transform: translateY(-1px);
+        }
+
+        .copy-btn.active {
+            background: var(--success);
+            color: #000;
+            border-color: transparent;
+            transform: scale(0.98);
+        }
+
+        /* Micro Animations & Loader */
+        .loader {
+            border: 2.5px solid rgba(255, 255, 255, 0.25);
+            border-top: 2.5px solid #fff;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spinCircle 0.6s linear infinite;
+        }
+
+        @keyframes spinCircle {
+            to { transform: rotate(360deg); }
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 12px;
+            color: #4c5265;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 480px) {
+            .glass-container {
+                padding: 30px 20px;
+                border-radius: 22px;
+            }
+            .app-title {
+                font-size: 26px;
+            }
+            .settings-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="glass-container">
+        <header class="app-header">
+            <h1 class="app-title">AI Offer <span class="gradient-text">Architect</span></h1>
+        </header>
+
+        <!-- User Settings Panel: Makes the tool highly customizable -->
+        <div class="settings-bar">
+            <span class="settings-label">Sign Messages As</span>
+            <div class="handle-input-wrapper">
+                <span>@</span>
+                <input type="text" id="userHandle" class="handle-input" placeholder="username" spellcheck="false">
+            </div>
+        </div>
+
+        <main>
+            <div class="input-section">
+                <div class="field-label">
+                    <span>Raw Offer Inputs</span>
+                    <span class="char-count" id="charCount">0 chars</span>
+                </div>
+                <textarea id="rawInput" class="styled-textarea" 
+                    placeholder="Example: WTS brand new iPhone 15 pro max 256gb natural titanium battery 100 local pickup only no shippings price is around 900 usd obo..."
+                    oninput="updateCharCount()"></textarea>
+            </div>
+
+            <button id="triggerBtn" class="action-btn" onclick="generateWorkflow()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                Build Message
+            </button>
+        </main>
+
+        <!-- Dynamic Response Section -->
+        <section class="result-panel" id="resultArea">
+            <div class="result-header">
+                <div class="result-tag">Optimized Output</div>
+            </div>
+            <textarea id="outputContent" class="output-box" readonly rows="10"></textarea>
+            
+            <button id="copyActionBtn" class="copy-btn" onclick="initiateCopy()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Duplicate to Clipboard
+            </button>
+        </section>
+
+        <footer class="footer-text">
+            High-Fidelity Engine powered by Pollinations Neural Net
+        </footer>
+    </div>
+
+    <script>
+        // Constants & System Directives
+        const SYSTEM_PROMPT = `You are an expert Telegram marketplace structuring bot. Your absolute only mission is to transform disorganized offer input into high-conversion, highly structured markdown messages.
+Strict Formatting Rules:
+1. Use sleek bold text headers (e.g. **[PROD_NAME]** or **💰 Price:**).
+2. Use uniform bullets and premium contextual emojis.
+3. Logical segments: Headline, Specifications, Price & Status, Terms.
+4. Keep lines readable and spacing neat.
+5. NEVER include contact details, user links, or closing dialog. The app appends this programmatically.
+6. Provide ONLY the raw markup. Absolutely no wrapper text.`;
+
+        // LocalStorage logic for persistence
+        const handleField = document.getElementById('userHandle');
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            // Set default or load stored value
+            const storedHandle = localStorage.getItem('tg_offer_handle');
+            handleField.value = storedHandle || 'rustedking';
+        });
+
+        // Persist custom handle upon input
+        handleField.addEventListener('input', (e) => {
+            let val = e.target.value.trim().replace('@', ''); // Remove manual @ if entered
+            localStorage.setItem('tg_offer_handle', val);
+        });
+
+        function updateCharCount() {
+            const input = document.getElementById('rawInput');
+            document.getElementById('charCount').innerText = `${input.value.length} chars`;
+        }
+
+        async function generateWorkflow() {
+            const rawText = document.getElementById('rawInput').value.trim();
+            const btn = document.getElementById('triggerBtn');
+            const resultNode = document.getElementById('resultArea');
+            const handleVal = handleField.value.trim().replace('@', '') || 'rustedking';
+
+            if (!rawText) {
+                triggerShake(document.getElementById('rawInput'));
+                return;
+            }
+
+            // Loading state aesthetics
+            btn.innerHTML = `<div class="loader"></div> Computing Engine...`;
+            btn.disabled = true;
+            resultNode.style.display = 'none';
+
+            try {
+                const endpoint = "https://text.pollinations.ai/";
+                
+                const payload = {
+                    messages: [
+                        { role: "system", content: SYSTEM_PROMPT },
+                        { role: "user", content: `Process this offer: ${rawText}` }
+                    ],
+                    model: "openai",
+                    jsonMode: false
+                };
+
+                const serverResponse = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!serverResponse.ok) throw new Error("API Refusal");
+
+                const textBody = await serverResponse.text();
+                
+                // Format signature and construct final block
+                const finalBlock = textBody.trim() + `\n\n📩 **Contact:** @${handleVal}`;
+
+                // Render onto screen
+                const targetArea = document.getElementById('outputContent');
+                targetArea.value = finalBlock;
+                resultNode.style.display = 'block';
+
+                // Smooth dynamic scrolling down
+                setTimeout(() => {
+                    resultNode.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+
+            } catch (err) {
+                console.error(err);
+                alert("The Neural Server timed out. Verify web connectivity and try again in 15 seconds.");
+            } finally {
+                // Restore UI Controls
+                btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Build Message`;
+                btn.disabled = false;
+            }
+        }
+
+        function triggerShake(element) {
+            element.style.borderColor = "rgba(255,71,87,0.6)";
+            element.animate([
+                { transform: 'translateX(0)' },
+                { transform: 'translateX(5px)' },
+                { transform: 'translateX(-5px)' },
+                { transform: 'translateX(0)' }
+            ], { duration: 300, iterations: 2 });
+            
+            setTimeout(() => { element.style.borderColor = ""; }, 2000);
+        }
+
+        async function initiateCopy() {
+            const box = document.getElementById('outputContent');
+            const copyBtn = document.getElementById('copyActionBtn');
+            const contents = box.value;
+
+            try {
+                // Modern async API with standard legacy fallback
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(contents);
+                } else {
+                    box.select();
+                    document.execCommand('copy');
+                }
+                handleCopyFeedback(copyBtn);
+            } catch (e) {
+                // Ultimate safe fallback for mobile environments
+                box.select();
+                document.execCommand('copy');
+                handleCopyFeedback(copyBtn);
+            }
+        }
+
+        function handleCopyFeedback(el) {
+            const originalMarkup = el.innerHTML;
+            el.classList.add('active');
+            el.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied Succesfully`;
+
+            setTimeout(() => {
+                el.classList.remove('active');
+                el.innerHTML = originalMarkup;
+            }, 2500);
+        }
+    </script>
+
+</body>
+
+</html>
