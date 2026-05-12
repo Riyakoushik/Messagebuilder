@@ -16,12 +16,15 @@ A beautiful, lightweight web tool that leverages AI to convert raw, unstructured
 - **One-Tap Copy**: Effortlessly copy to your clipboard formatted correctly for Telegram markup.
 - **Zero Configuration**: No server, API keys, or installations needed. Works directly out of the HTML file.
 
-## 🛠 How It Works
+## 💡 What You Will Do
 
-1. **Paste** your messy unstructured offer details into the text box.
-2. Click **Generate Clean Message**.
-3. The system prompts **Pollinations AI** to intelligently structure the content with bullet points and clear typography.
-4. **Copy to Telegram** and you're ready to broadcast!
+Using this system is designed to be incredibly straightforward. Here are the precise steps:
+
+1. **Set Your Persona**: Input your Telegram username (without `@`) into the settings top bar. It saves automatically for all future uses!
+2. **Input Raw Offer**: Paste any messy text, specs, or raw voice-to-text notes regarding an item you are trying to list.
+3. **Trigger AI Builder**: Click the glowy **Build Message** button.
+4. **Review Results**: Instantly watch as the system generates a perfectly bulleted markdown text structured for high Telegram conversion.
+5. **Instant Broadcast**: Hit **Duplicate to Clipboard** and paste directly into your desired Telegram channels.
 
 ## 🚀 Getting Started
 
