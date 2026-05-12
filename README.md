@@ -28,14 +28,14 @@ Using this system is designed to be incredibly straightforward. Here are the pre
 
 ## 🚀 Getting Started
 
-Simply clone the repository and open `main.html` in any modern web browser!
+Simply clone the repository and open `index.html` in any modern web browser!
 
 ```bash
 git clone https://github.com/Riyakoushik/Messagebuilder.git
 cd Messagebuilder
 ```
 
-Double-click `main.html` to launch locally.
+Double-click `index.html` to launch locally.
 
 ---
 
