@@ -501,7 +501,7 @@
                 <span class="sig-label">Auto Signature</span>
                 <div class="sig-input-wrapper">
                     <span>@</span>
-                    <input type="text" id="handleControl" class="sig-input" placeholder="rustedking" spellcheck="false">
+                    <input type="text" id="handleControl" class="sig-input" placeholder="username" spellcheck="false">
                 </div>
             </div>
         </header>
@@ -520,7 +520,7 @@
                 </div>
 
                 <textarea id="composerBox" class="editor-textarea" 
-                    placeholder="Enter disorganized offer intel here... E.g. 'Selling my 2022 MacBook Pro 14, 16GB RAM, 512GB SSD. Mint condition. Space Gray. Looking for 1400 obo. Located in NYC for pickup only.'"
+                    placeholder="Enter offer intel here... E.g. 'Selling MacBook Pro 14...' OR 'E-commerce App Source Code for $200...' OR 'Promo code SAVE50 valid till tomorrow...'"
                     oninput="syncTextMetrics()"></textarea>
 
                 <div class="btn-group">
@@ -569,13 +569,14 @@
     <script>
         // AI Context Directive
         const SYSTEM_INSTRUCTION = `You are an elite formatting logic unit for Telegram marketplace deployment. 
-OBJECTIVE: Restructure messy user offer data into an extremely clean, structured, high-converting markdown announcement.
+OBJECTIVE: Restructure messy user data into an extremely clean, structured, high-converting markdown announcement.
+SCOPE: Handles physical items, digital assets (apps, source code, keys), and promo codes.
 REGULATIONS:
-1. Use bold headers like **📱 DEVICE NAME** or **💰 ASKING PRICE**.
-2. Use professional bullets (•) and selective premium emojis.
-3. Output MUST flow: Headline -> Detailed Specs -> Price/Condition -> Terms.
+1. Use contextual bold headers like **📱 DEVICE**, **💻 SOURCE CODE**, **🎟️ PROMO CODE**, or **💰 PRICE**.
+2. Use professional bullets (•) and selective premium emojis relevant to the item type.
+3. Output MUST flow logically: Headline -> Key Specs/Details -> Price/Validity -> Terms.
 4. Keep text blocks concise and double-spaced.
-5. ABSOLUTELY NEVER generated footer links, username tags, or small talk. The engine handles this algorithmically.`;
+5. ABSOLUTELY NEVER generate footer links, username tags, or small talk.`;
 
         // State Management
         const handleInput = document.getElementById('handleControl');
@@ -587,7 +588,7 @@ REGULATIONS:
         // Initial Life-cycle Hook
         document.addEventListener('DOMContentLoaded', () => {
             const memory = localStorage.getItem('user_architect_sig');
-            handleInput.value = memory || 'rustedking';
+            handleInput.value = memory || '';
         });
 
         // Settings Persistence
@@ -604,7 +605,7 @@ REGULATIONS:
         // Primary Action Pipeline
         async function invokeAIEngine() {
             const sourceData = writePad.value.trim();
-            const handleStamp = handleInput.value.trim().replace('@', '') || 'rustedking';
+            const handleStamp = handleInput.value.trim().replace('@', '');
             
             const ctaBtn = document.getElementById('compileBtn');
             const iconNode = document.getElementById('btnIconStandard');
@@ -643,7 +644,7 @@ REGULATIONS:
                 const rawReturn = await responseObj.text();
                 
                 // Assemble the perfect telegram block
-                currentGeneratedBuffer = rawReturn.trim() + `\n\n📩 **Contact:** @${handleStamp}`;
+                currentGeneratedBuffer = rawReturn.trim() + (handleStamp ? `\n\n📩 **Contact:** @${handleStamp}` : '');
 
                 // Direct output rendering with subtle fade in
                 feedWall.style.opacity = 0;
